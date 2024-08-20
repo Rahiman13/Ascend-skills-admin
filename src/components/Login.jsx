@@ -20,7 +20,7 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post('http://localhost:5000/api/users/login', formData);
+      const response = await axios.post('https://ascend-skills-backend.onrender.com/api/users/login', formData);
       console.log(response.data);
       localStorage.setItem('token', response.data.token);
       alert('Login Successful');

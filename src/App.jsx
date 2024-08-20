@@ -68,9 +68,11 @@ import VideoReviews from './components/Dashboard/VideoReview_page/VideoReviewsPa
 import Reviews from './components/Dashboard/Reviews_page/ReviewsPage';
 import Services from './components/Dashboard/Services_page/ServicesPage';
 import Adresses from './components/Dashboard/Address_page/AddressesPage';
+
 // import s from './components/Dashboard/Team_page/TeamMembersPage';
 // Add additional imports for other components here
 import Login from './components/Login'
+import Register from './components/Register';
 
 const App = () => {
   return (
@@ -82,6 +84,7 @@ const App = () => {
           <main className="flex-1 p-6 overflow-y-auto">
             <Routes>
               <Route path="/" element={<Login />} />
+              <Route path="/register" element={<Register />} />
               <Route path="/courses" element={<Courses />} />
               <Route path="/colleges" element={<Colleges />} />
               <Route path="/phd-holders" element={<PhdHolders />} />

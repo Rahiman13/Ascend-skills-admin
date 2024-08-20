@@ -24,7 +24,7 @@ const Register = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post('http://localhost:5000/api/users/register', formData);
+      const response = await axios.post('https://ascend-skills-backend.onrender.com/api/users/register', formData);
       console.log(response.data);
       alert('Registration Successful');
       navigate('/login');
