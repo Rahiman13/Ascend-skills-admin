@@ -1,0 +1,19 @@
+/* Sidebar.css */
+
+.custom-scrollbar::-webkit-scrollbar {
+    width: 8px; /* Adjust width for a narrower scrollbar */
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent; /* Track color */
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.5); /* Scrollbar color */
+    border-radius: 4px; /* Rounded scrollbar thumb */
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.8); /* Scrollbar color on hover */
+  }
+  

@@ -1,0 +1,39 @@
+/* src/index.css */
+
+/* Modal Overlay */
+.modal-overlay {
+    background: rgba(0, 0, 0, 0.5);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+  
+  /* Modal Container */
+  .modal {
+    background: white;
+    border-radius: 8px;
+    padding: 20px;
+    max-width: 500px;
+    height: 80vh; /* Fixed height for the modal */
+    margin: auto;
+    position: fixed; /* Fixed positioning */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    overflow-y: auto; /* Scrollable content */
+  }
+  
+  /* Modal Header, Body, Footer (optional) */
+  .modal-header,
+  .modal-body,
+  .modal-footer {
+    padding: 10px;
+  }
+  
+  .modal-body {
+    max-height: calc(80vh - 100px); /* Adjust according to header and footer height */
+    overflow-y: auto;
+  }
+  

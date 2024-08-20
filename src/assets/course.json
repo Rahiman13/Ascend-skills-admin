@@ -1,0 +1,99 @@
+[
+    {
+      "name": "John Doe",
+      "courseId": "66b0764402ec16ab77ddfd43",
+      "bio": "John Doe is a seasoned web developer with over 10 years of experience in the industry. He has a passion for teaching and has authored several courses on web development.",
+      "image": "path/to/john_doe_image.jpg",
+      "authorReviews": [
+        {
+          "userId": "66acdf9114d3f3b8eea2c6c1",
+          "rating": 5,
+          "comment": "John is an excellent instructor. His courses are well-structured and easy to follow."
+        },
+        {
+          "userId": "66acdf9114d3f3b8eea2c6c2",
+          "rating": 4,
+          "comment": "Great course content and teaching style."
+        }
+      ],
+      "degrees": [
+        {
+          "title": "B.Sc in Computer Science",
+          "institution": "Harvard University",
+          "year": 2012
+        },
+        {
+          "title": "M.Sc in Computer Science",
+          "institution": "MIT",
+          "year": 2014
+        }
+      ],
+      "experience": "10",
+      "previousCompany": "Google"
+    },
+    {
+      "name": "Jane Smith",
+      "courseId": "66b07ab006f561ff834c78c2",
+      "bio": "Jane Smith is a data scientist with a strong background in machine learning and AI. She enjoys sharing her knowledge through teaching and writing.",
+      "image": "path/to/jane_smith_image.jpg",
+      "authorReviews": [
+        {
+          "userId": "66acdf9114d3f3b8eea2c6c3",
+          "rating": 5,
+          "comment": "Jane's courses are informative and engaging."
+        },
+        {
+          "userId": "66acdf9114d3f3b8eea2c6c4",
+          "rating": 4,
+          "comment": "I learned a lot from her machine learning course."
+        }
+      ],
+      "degrees": [
+        {
+          "title": "B.Sc in Mathematics",
+          "institution": "Stanford University",
+          "year": 2011
+        },
+        {
+          "title": "Ph.D. in Computer Science",
+          "institution": "Stanford University",
+          "year": 2015
+        }
+      ],
+      "experience": "8",
+      "previousCompany": "Facebook"
+    },
+    {
+      "name": "Rahiman Shaik",
+      "courseId": "66b07ba27dbccc8d6fdfd0e0",
+      "bio": "Rahiman Shaik is an experienced developer with expertise in web development. He has a knack for making complex topics simple and understandable.",
+      "image": "path/to/rahiman_shaik_image.jpg",
+      "authorReviews": [
+        {
+          "userId": "66acdf9114d3f3b8eea2c6c5",
+          "rating": 5,
+          "comment": "Rahiman is an amazing instructor!"
+        },
+        {
+          "userId": "66acdf9114d3f3b8eea2c6c6",
+          "rating": 4,
+          "comment": "His explanations are very clear."
+        }
+      ],
+      "degrees": [
+        {
+          "title": "B.Tech in Information Technology",
+          "institution": "BEC College",
+          "year": 2020
+        },
+        {
+          "title": "M.S in Computer Science",
+          "institution": "Texas University",
+          "year": 2022
+        }
+      ],
+      "experience": "4",
+      "previousCompany": "TCS"
+    }
+  ]
+  
