@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import Modal from 'react-modal';
 import axios from 'axios';
+import Base_Url from '../../../api';
+
+const apiUrl =`${Base_Url}/contacts`
 
 Modal.setAppElement('#root');
 
@@ -21,7 +24,7 @@ const ContactsPage = () => {
 
   const fetchContacts = async () => {
     try {
-      const response = await axios.get('https://ascend-skills-backend.onrender.com/api/contacts');
+      const response = await axios.get(`${apiUrl}`);
       setContacts(response.data);
     } catch (error) {
       console.error('Error fetching contacts:', error);
@@ -63,9 +66,9 @@ const ContactsPage = () => {
     e.preventDefault();
     try {
       if (isEdit) {
-        await axios.put(`https://ascend-skills-backend.onrender.com/api/contacts/${currentContact._id}`, currentContact);
+        await axios.put(`${apiUrl}/${currentContact._id}`, currentContact);
       } else {
-        await axios.post('https://ascend-skills-backend.onrender.com/api/contacts', currentContact);
+        await axios.post(`${apiUrl}`, currentContact);
       }
       fetchContacts();
       closeModal();
@@ -76,7 +79,7 @@ const ContactsPage = () => {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`https://ascend-skills-backend.onrender.com/api/contacts/${id}`);
+      await axios.delete(`${apiUrl}/${id}`);
       fetchContacts();
     } catch (error) {
       console.error('Error deleting contact:', error);

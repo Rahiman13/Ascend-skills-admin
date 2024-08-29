@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Swal from 'sweetalert2';
+import Base_Url from '../../../api';
+
+const apiUrl =`${Base_Url}/reviews`
 
 const Modal = ({ onClose, editMode, review }) => {
   const [courseId, setCourseId] = useState('');
@@ -32,10 +35,10 @@ const Modal = ({ onClose, editMode, review }) => {
 
     try {
       if (editMode) {
-        await axios.put(`https://ascend-skills-backend.onrender.com/api/reviews/${review._id}`, formData);
+        await axios.put(`${apiUrl}/${review._id}`, formData);
         Swal.fire('Success', 'Review updated successfully!', 'success');
       } else {
-        await axios.post('https://ascend-skills-backend.onrender.com/api/reviews', formData);
+        await axios.post(`${apiUrl}`, formData);
         Swal.fire('Success', 'Review added successfully!', 'success');
       }
       onClose();

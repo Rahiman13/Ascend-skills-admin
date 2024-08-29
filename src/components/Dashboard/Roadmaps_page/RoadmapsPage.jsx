@@ -3,6 +3,9 @@ import axios from 'axios';
 import { AiFillEdit, AiFillDelete } from 'react-icons/ai';
 import { MdAdd } from 'react-icons/md';
 import Modal from './RoadmapsModal';
+import Base_Url from '../../../api';
+
+const apiUrl =`${Base_Url}/roadmaps`
 
 const RoadmapsPage = () => {
   const [roadmaps, setRoadmaps] = useState([]);
@@ -15,7 +18,7 @@ const RoadmapsPage = () => {
 
   const fetchRoadmaps = async () => {
     try {
-      const response = await axios.get('https://ascend-skills-backend.onrender.com/api/roadmaps');
+      const response = await axios.get(`${apiUrl}`);
       setRoadmaps(response.data);
     } catch (error) {
       console.error('Failed to fetch roadmaps:', error);
@@ -25,7 +28,7 @@ const RoadmapsPage = () => {
   const handleDelete = async (id) => {
     if (window.confirm('Are you sure you want to delete this roadmap?')) {
       try {
-        await axios.delete(`https://ascend-skills-backend.onrender.com/api/roadmaps/${id}`);
+        await axios.delete(`${apiUrl}/${id}`);
         fetchRoadmaps();
       } catch (error) {
         console.error('Failed to delete roadmap:', error);

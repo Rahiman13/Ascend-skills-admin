@@ -3,9 +3,11 @@ import axios from 'axios';
 import Swal from 'sweetalert2';
 import Modal from 'react-modal';
 import { FaEdit, FaTrashAlt, FaPlus } from 'react-icons/fa';
+import Base_Url from '../../../api';
 
 Modal.setAppElement('#root');
 
+const apiUrl =`${Base_Url}/authors`
 const AuthorsPage = () => {
   const [authors, setAuthors] = useState([]);
   const [showModal, setShowModal] = useState(false);
@@ -28,7 +30,7 @@ const AuthorsPage = () => {
 
   const fetchAuthors = async () => {
     try {
-      const response = await axios.get('https://ascend-skills-backend.onrender.com/api/authors');
+      const response = await axios.get(`${apiUrl}`);
       setAuthors(response.data);
     } catch (error) {
       console.error('Error fetching authors:', error);
@@ -53,7 +55,7 @@ const AuthorsPage = () => {
       return;
     }
   
-    const url = modalType === 'add' ? 'https://ascend-skills-backend.onrender.com/api/authors' : `https://ascend-skills-backend.onrender.com/api/authors/${currentAuthor._id}`;
+    const url = modalType === 'add' ? `${apiUrl}` : `${apiUrl}/${currentAuthor._id}`;
     const method = modalType === 'add' ? 'post' : 'put';
   
     try {
@@ -82,7 +84,7 @@ const AuthorsPage = () => {
 
   const handleDeleteAuthor = async (id) => {
     try {
-      await axios.delete(`https://ascend-skills-backend.onrender.com/api/authors/${id}`);
+      await axios.delete(`${apiUrl}/${id}`);
       Swal.fire('Deleted!', 'Author has been deleted.', 'success');
       fetchAuthors();
     } catch (error) {

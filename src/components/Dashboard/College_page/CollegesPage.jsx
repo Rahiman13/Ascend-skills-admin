@@ -3,7 +3,10 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import AddCollegeModal from './AddCollegeModal';
 import EditCollegeModal from './EditCollegeModal';
+import Base_Url from '../../../api';
 
+
+const apiUrl = `${Base_Url}/colleges`
 const CollegesPage = () => {
     const [colleges, setColleges] = useState([]);
     const [showAddModal, setShowAddModal] = useState(false);
@@ -16,7 +19,7 @@ const CollegesPage = () => {
 
     const fetchColleges = async () => {
         try {
-            const response = await axios.get('https://ascend-skills-backend.onrender.com/api/colleges');
+            const response = await axios.get(`${apiUrl}`);
             setColleges(response.data);
         } catch (error) {
             console.error('Error fetching colleges:', error);
@@ -35,7 +38,7 @@ const CollegesPage = () => {
 
     const handleDeleteCollege = async (id) => {
         try {
-            await axios.delete(`https://ascend-skills-backend.onrender.com/api/colleges/${id}`);
+            await axios.delete(`${apiUrl}/${id}`);
             fetchColleges();
             toast.success('College deleted successfully!');
         } catch (error) {
@@ -61,7 +64,8 @@ const CollegesPage = () => {
                 {colleges.map((college) => (
                     <div key={college._id} className="bg-white p-4 rounded shadow-md">
                         <img
-                            src={`https://ascend-skills-backend.onrender.com/uploads/${college.logo}`}
+                            // src={`https://ascend-skills-backend.onrender.com/uploads/${college.logo}`}
+                            src={college.logo}
                             alt={college.name}
                             className="w-full h-40 object-cover rounded-md"
                         />

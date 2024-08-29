@@ -3,6 +3,9 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import AddPhdHolderModal from './AddPhdHolderModal'; // Ensure you create this modal
 import EditPhdHolderModal from './EditPhdHolderModal'; // Ensure you create this modal
+import Base_Url from '../../../api';
+
+const apiUrl =`${Base_Url}/phd-holders`
 
 const PhdHoldersPage = () => {
     const [phdHolders, setPhdHolders] = useState([]);
@@ -16,7 +19,7 @@ const PhdHoldersPage = () => {
 
     const fetchPhdHolders = async () => {
         try {
-            const response = await axios.get('https://ascend-skills-backend.onrender.com/api/phd-holders');
+            const response = await axios.get(`${apiUrl}`);
             setPhdHolders(response.data);
         } catch (error) {
             console.error('Error fetching PhD holders:', error);
@@ -35,7 +38,7 @@ const PhdHoldersPage = () => {
 
     const handleDeletePhdHolder = async (id) => {
         try {
-            await axios.delete(`https://ascend-skills-backend.onrender.com/api/phd-holders/${id}`);
+            await axios.delete(`${apiUrl}/${id}`);
             fetchPhdHolders();
             toast.success('PhD holder deleted successfully!');
         } catch (error) {
@@ -47,7 +50,7 @@ const PhdHoldersPage = () => {
     return (
         <div className="p-6">
             <div className="flex justify-between">
-                <h1 className="text-3xl font-bold mb-6">Phd Holders</h1>
+                <h1 className="text-3xl font-bold mb-6">PhD Holders</h1>
                 <button
                     className="mb-4 px-4 py-2 bg-blue-500 text-white rounded"
                     onClick={handleAddPhdHolder}
@@ -60,14 +63,14 @@ const PhdHoldersPage = () => {
                     <div key={phdHolder._id} className="bg-white p-4 rounded shadow-md">
                         {phdHolder.image && (
                             <img
-                                src={`https://ascend-skills-backend.onrender.com/uploads/${phdHolder.image}`}
+                                src={phdHolder.image}
                                 alt={phdHolder.name}
                                 className="w-full h-40 object-cover rounded-md"
                             />
                         )}
                         <h2 className="text-xl font-semibold mt-4">{phdHolder.name}</h2>
                         <p className="text-gray-700 mt-2">{phdHolder.university}</p>
-                        <p className="text-gray-600 mt-2">{phdHolder.fieldOfStudy}</p>
+                        <p className="text-gray-600 mt-2">{phdHolder.description}</p>
                         <p className="text-gray-600 mt-2">Year of Completion: {phdHolder.yearOfCompletion}</p>
                         <div className="mt-4 flex space-x-2">
                             <button

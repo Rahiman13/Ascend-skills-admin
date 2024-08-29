@@ -4,7 +4,8 @@ const TeamMemberCard = ({ member, onEdit, onDelete }) => {
     return (
         <div className="bg-white p-4 rounded-lg shadow-lg">
             <img
-                src={`https://ascend-skills-backend.onrender.com/uploads/${member.image}`}
+                // src={`${apiUrl}${member.image}`}
+                src={member.image}
                 alt={member.name}
                 className="w-full h-48 object-cover rounded-md mb-4"
             />

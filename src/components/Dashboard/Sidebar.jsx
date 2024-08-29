@@ -11,6 +11,8 @@ import {
   FaPhone,
   FaUserCircle,
   FaBriefcase,
+  FaLink,
+  FaCalculator,
   FaClipboardList,
   FaMap
 } from 'react-icons/fa';
@@ -35,8 +37,11 @@ const Sidebar = () => {
     { to: "/contacts", icon: <FaPhone />, label: "Contacts" },
     { to: "/video-reviews", icon: <FaVideo />, label: "Video Reviews" },
     { to: "/reviews", icon: <FaStar />, label: "Reviews" },
-    { to: "/services", icon: <FaBriefcase />, label: "Services" },
-    { to: "/address", icon: <FaBriefcase />, label: "Address" }
+    // { to: "/services", icon: <FaBriefcase />, label: "Services" },
+    { to: "/address", icon: <FaBriefcase />, label: "Address" },
+    { to: "/links", icon: <FaLink />, label: "Links" },
+    { to: "/counters", icon: <FaCalculator />, label: "Counters" },
+
   ];
 
   return (

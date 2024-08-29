@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import Base2_Url from '../api'
 
+const apiUrl =`${Base2_Url}/login`
 const Login = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
@@ -20,7 +22,7 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post('https://ascend-skills-backend.onrender.com/api/users/login', formData);
+      const response = await axios.post(`${Base2_Url}`, formData);
       console.log(response.data);
       localStorage.setItem('token', response.data.token);
       alert('Login Successful');

@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import Base_Url from '../../../api';
 
+const apiUrl =`${Base_Url}/phd-holders`
 const AddPhdHolderModal = ({ show, handleClose, onAdd }) => {
     const [name, setName] = useState('');
     const [university, setUniversity] = useState('');
-    const [fieldOfStudy, setFieldOfStudy] = useState('');
+    const [description, setDescription] = useState(''); // Updated fieldOfStudy to description
     const [yearOfCompletion, setYearOfCompletion] = useState('');
     const [publications, setPublications] = useState('');
     const [image, setImage] = useState(null);
@@ -14,7 +16,7 @@ const AddPhdHolderModal = ({ show, handleClose, onAdd }) => {
         const formData = new FormData();
         formData.append('name', name);
         formData.append('university', university);
-        formData.append('fieldOfStudy', fieldOfStudy);
+        formData.append('description', description); // Updated fieldOfStudy to description
         formData.append('yearOfCompletion', yearOfCompletion);
         formData.append('publications', publications);
         if (image) {
@@ -22,7 +24,7 @@ const AddPhdHolderModal = ({ show, handleClose, onAdd }) => {
         }
 
         try {
-            await axios.post('https://ascend-skills-backend.onrender.com/api/phd-holders', formData, {
+            await axios.post(`${apiUrl}`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
@@ -30,7 +32,7 @@ const AddPhdHolderModal = ({ show, handleClose, onAdd }) => {
             handleClose();
             onAdd();
         } catch (error) {
-            console.error('Error adding PhD holder:', error);
+            console.error('Error adding PhD holder:', error.response?.data || error.message);
         }
     };
 
@@ -70,13 +72,13 @@ const AddPhdHolderModal = ({ show, handleClose, onAdd }) => {
                     </div>
 
                     <div className="mb-4">
-                        <label htmlFor="fieldOfStudy" className="block text-sm font-medium text-gray-700">Field of Study</label>
+                        <label htmlFor="Description" className="block text-sm font-medium text-gray-700">Description</label>
                         <input
-                            id="fieldOfStudy"
-                            type="text"
+                            id="Description"
+                            type="textarea"
                             placeholder="Enter field of study"
-                            value={fieldOfStudy}
-                            onChange={(e) => setFieldOfStudy(e.target.value)}
+                            value={description}
+                            onChange={(e) => setDescription(e.target.value)}
                             className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                         />
                     </div>

@@ -4,7 +4,9 @@ import axios from 'axios';
 import Modal from 'react-modal';
 import Swal from 'sweetalert2';
 import { FaEdit, FaTrash, FaPlus } from 'react-icons/fa';
+import Base_Url from '../../../api';
 
+const apiUrl=`${Base_Url}/services`
 // Custom styles for the modal
 const customStyles = {
   content: {
@@ -35,7 +37,7 @@ const ServicesPage = () => {
 
   const fetchServices = async () => {
     try {
-      const response = await axios.get('https://ascend-skills-backend.onrender.com/api/services');
+      const response = await axios.get(`${apiUrl}`);
       setServices(response.data.data);
     } catch (error) {
       console.error('Error fetching services:', error);
@@ -72,10 +74,10 @@ const ServicesPage = () => {
     e.preventDefault();
     try {
       if (editMode) {
-        await axios.put(`https://ascend-skills-backend.onrender.com/api/services/${currentService._id}`, formData);
+        await axios.put(`${apiUrl}/${currentService._id}`, formData);
         Swal.fire('Updated!', 'Service has been updated.', 'success');
       } else {
-        await axios.post('https://ascend-skills-backend.onrender.com/api/services', formData);
+        await axios.post(`${apiUrl}`, formData);
         Swal.fire('Created!', 'Service has been added.', 'success');
       }
       fetchServices();
@@ -88,7 +90,7 @@ const ServicesPage = () => {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`https://ascend-skills-backend.onrender.com/api/services/${id}`);
+      await axios.delete(`${apiUrl}/${id}`);
       Swal.fire('Deleted!', 'Service has been deleted.', 'success');
       fetchServices();
     } catch (error) {

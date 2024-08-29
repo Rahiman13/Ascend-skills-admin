@@ -1,122 +1,62 @@
-// // src/components/CourseCard.js
-// import React from 'react';
+import React from 'react';
+import { Edit, Trash2, Eye } from 'lucide-react';
 
-// const CourseCard = ({ course, onEdit, onDelete }) => {
-//   return (
-//     <div className="bg-white shadow-md rounded-lg p-4 m-2">
-//       <img src={course.image} alt={course.title} className="w-full h-40 object-cover rounded-md" />
-//       <h2 className="text-xl font-semibold mt-2">{course.title}</h2>
-//       <h2 className="text-xl font-semibold mt-2">Auhtor Name: {course.authorName}</h2>
-//       <p className="text-gray-600"> Duration: {course.duration}</p>
-//       <p className="text-gray-600">{course.description}</p>
-//       <p className="text-gray-800 font-semibold">Price: ${course.price}</p>
-//       <p className="text-gray-800 font-semibold">Rating: {course.courseRating}</p>
-//       {/* <p className="text-gray-800 font-semibold">Curriculum: {course.curriculum}</p> */}
-//       <div className="flex justify-between mt-4">
-//         <button
-//           onClick={() => onEdit(course)}
-//           className="bg-blue-500 text-white px-3 py-1 rounded-lg hover:bg-blue-600"
-//         >
-//           Edit
-//         </button>
-//         <button
-//           onClick={() => onDelete(course._id)}
-//           className="bg-red-500 text-white px-3 py-1 rounded-lg hover:bg-red-600"
-//         >
-//           Delete
-//         </button>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default CourseCard;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-import React, { useState } from 'react';
-
-const CourseCard = ({ course, onEdit, onDelete }) => {
-  const [showMore, setShowMore] = useState(false);
-
-  const handleToggleMore = () => {
-    setShowMore(prevState => !prevState);
-  };
-
+const CourseCard = ({ course, onEdit, onDelete, onView }) => {
   return (
-    <div className="bg-white shadow-md rounded-lg p-4 m-2">
+    <div className="bg-white shadow-lg rounded-lg overflow-hidden">
       <img
-        src={course.image}
+        src={course.image || '/placeholder.svg?height=200&width=400'}
         alt={course.title}
-        className="w-full h-40 object-cover rounded-md"
+        className="w-full h-48 object-cover"
       />
-      <h2 className="text-xl font-semibold mt-2">{course.title}</h2>
-      <h2 className="text-xl font-semibold mt-2">Author Name: {course.authorName}</h2>
-      <p className="text-gray-600">Duration: {course.duration}</p>
-      <p className="text-gray-800 font-semibold">Price: ${course.price}</p>
-      <p className="text-gray-800 font-semibold">Rating: {course.courseRating}</p>
-      
-      {/* Show more toggle */}
-      <button
-        onClick={handleToggleMore}
-        className="text-blue-500 mt-2 mb-4"
-      >
-        {showMore ? 'Show Less' : 'Show More'}
-      </button>
-      
-      {/* Conditional rendering of description and curriculum */}
-      {showMore && (
-        <div>
-          <p className="text-gray-600 mb-2">{course.description}</p>
-          <div className="text-gray-800 mb-2">
-            <strong>Curriculum:</strong>
-            <ul>
-              {Object.keys(course.curriculum || {}).map((module, index) => (
-                <li key={index}>
-                  <strong>{module}:</strong>
-                  <ul>
-                    {course.curriculum[module].map((topic, i) => (
-                      <li key={i}>{topic}</li>
-                    ))}
-                  </ul>
-                </li>
-              ))}
-            </ul>
-          </div>
+      <div className="p-4">
+        <h2 className="text-xl font-semibold mb-2">{course.title}</h2>
+        {/* <p className="text-gray-600 mb-2">{course.description}</p> */}
+        <div className="flex justify-between items-center mb-2">
+          <span className="text-gray-500">Duration: {course.duration} hours</span>
+          <span className="text-blue-500 font-semibold">${course.price}</span>
         </div>
-      )}
+        <p className="text-gray-500 mb-2">Category: {course.category}</p>
+        {/* <img src={course.authorImage} alt={course.title} className='rounded-full w-1/6 h-1/4' /> */}
 
-      <div className="flex justify-between mt-4">
-        <button
-          onClick={() => onEdit(course)}
-          className="bg-blue-500 text-white px-3 py-1 rounded-lg hover:bg-blue-600"
-        >
-          Edit
-        </button>
-        <button
-          onClick={() => onDelete(course._id)}
-          className="bg-red-500 text-white px-3 py-1 rounded-lg hover:bg-red-600"
-        >
-          Delete
-        </button>
+
+        <a href={course.vedio} className="text-blue-500 mb-2" target='_blank'>Video: {course.vedio}</a>
+        <br />
+        <a href={course.pricing} className="text-blue-500 mb-2" target='_blank'>Pricing: {course.pricing}</a>
+        {course.courseRating && (
+          <p className="text-yellow-500 mb-2">Rating: {course.courseRating}</p>
+        )}
+        <div className="flex items-centers">
+          <img
+            src={course.authorImage}
+            alt={course.title}
+            className="rounded-full w-8 h-8 object-cover mr-2"
+          />
+          <p className="text-gray-700 font-bold text-xl mb-2"> {course.author}</p>
+        </div>
+        <div className="flex justify-end space-x-2 mt-4">
+          <button
+            onClick={onView}
+            className="p-2 bg-green-100 text-green-600 rounded-full hover:bg-green-200"
+          >
+            <Eye size={20} />
+          </button>
+          <button
+            onClick={onEdit}
+            className="p-2 bg-blue-100 text-blue-600 rounded-full hover:bg-blue-200"
+          >
+            <Edit size={20} />
+          </button>
+          <button
+            onClick={onDelete}
+            className="p-2 bg-red-100 text-red-600 rounded-full hover:bg-red-200"
+          >
+            <Trash2 size={20} />
+          </button>
+        </div>
       </div>
     </div>
   );
 };
 
 export default CourseCard;
-

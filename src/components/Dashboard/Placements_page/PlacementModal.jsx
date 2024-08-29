@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import Base_Url from '../../../api';
+
+const apiUrl =`${Base_Url}/placements`
 
 const PlacementModal = ({ isOpen, onClose, placement, isEdit }) => {
   const [formData, setFormData] = useState({
@@ -31,9 +34,9 @@ const PlacementModal = ({ isOpen, onClose, placement, isEdit }) => {
 
     try {
       if (isEdit) {
-        await axios.put(`https://ascend-skills-backend.onrender.com/api/placements/${placement._id}`, formDataToSend);
+        await axios.put(`${apiUrl}/${placement._id}`, formDataToSend);
       } else {
-        await axios.post('https://ascend-skills-backend.onrender.com/api/placements', formDataToSend);
+        await axios.post(`${apiUrl}`, formDataToSend);
       }
       onClose();
     } catch (error) {

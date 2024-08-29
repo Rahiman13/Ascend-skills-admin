@@ -68,6 +68,8 @@ import VideoReviews from './components/Dashboard/VideoReview_page/VideoReviewsPa
 import Reviews from './components/Dashboard/Reviews_page/ReviewsPage';
 import Services from './components/Dashboard/Services_page/ServicesPage';
 import Adresses from './components/Dashboard/Address_page/AddressesPage';
+import Links from './components/Dashboard/Links_page/links';
+import Counters from './components/Dashboard/Counters_page/Counters';
 
 // import s from './components/Dashboard/Team_page/TeamMembersPage';
 // Add additional imports for other components here
@@ -98,7 +100,9 @@ const App = () => {
               <Route path="/video-reviews" element={<VideoReviews />} />
               <Route path="/reviews" element={<Reviews />} />
               <Route path="/services" element={<Services />} />
-              <Route path="//address" element={<Adresses />} />
+              <Route path="/address" element={<Adresses />} />
+              <Route path="/links" element={<Links />} />
+              <Route path="/counters" element={<Counters />} />
               {/* Add more routes as needed */}
             </Routes>
           </main>

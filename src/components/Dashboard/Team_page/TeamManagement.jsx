@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import TeamMemberCard from './TeamMemberCard';
 import EditTeamMemberModal from './EditTeamMemberModal';
+import Base_Url from '../../../api';
+
+const apiUrl =`${Base_Url}/team`
 
 const TeamManagement = () => {
     const [teamMembers, setTeamMembers] = useState([]);
@@ -14,7 +17,7 @@ const TeamManagement = () => {
 
     const fetchTeamMembers = async () => {
         try {
-            const response = await axios.get('https://ascend-skills-backend.onrender.com/api/team');
+            const response = await axios.get(`${apiUrl}`);
             setTeamMembers(response.data);
         } catch (error) {
             console.error('Error fetching team members:', error);
@@ -29,7 +32,7 @@ const TeamManagement = () => {
     const handleDelete = async (id) => {
         if (window.confirm('Are you sure you want to delete this team member?')) {
             try {
-                await axios.delete(`https://ascend-skills-backend.onrender.com/api/team/${id}`);
+                await axios.delete(`${apiUrl}/${id}`);
                 fetchTeamMembers();
             } catch (error) {
                 console.error('Error deleting team member:', error);

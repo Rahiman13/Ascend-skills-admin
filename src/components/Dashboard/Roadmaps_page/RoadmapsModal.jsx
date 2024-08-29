@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import Base_Url from '../../../api';
+
+const apiUrl =`${Base_Url}/roadmaps`
+const apiUrl_courses=`${Base_Url}/courses`
 
 const RoadmapsModal = ({ roadmap, onClose }) => {
   const [title, setTitle] = useState('');
@@ -18,7 +22,7 @@ const RoadmapsModal = ({ roadmap, onClose }) => {
 
   const fetchCourses = async () => {
     try {
-      const response = await axios.get('https://ascend-skills-backend.onrender.com/api/courses');
+      const response = await axios.get(`${apiUrl_courses}`);
       setCourses(response.data);
     } catch (error) {
       console.error('Failed to fetch courses:', error);
@@ -28,13 +32,13 @@ const RoadmapsModal = ({ roadmap, onClose }) => {
   const handleSave = async () => {
     try {
       if (roadmap) {
-        await axios.put(`https://ascend-skills-backend.onrender.com/api/roadmaps/${roadmap._id}`, {
+        await axios.put(`${apiUrl}/${roadmap._id}`, {
           title,
           courseId,
           contents,
         });
       } else {
-        await axios.post('https://ascend-skills-backend.onrender.com/api/roadmaps', {
+        await axios.post(`${apiUrl}`, {
           title,
           courseId,
           contents,

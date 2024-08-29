@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import Base_Url from '../../../api';
+
+const apiUrl =`${Base_Url}/phd-holders`
 
 const EditPhdHolderModal = ({ show, handleClose, phdHolder, onUpdate }) => {
     const [name, setName] = useState('');
     const [university, setUniversity] = useState('');
-    const [fieldOfStudy, setFieldOfStudy] = useState('');
+    const [description, setDescription] = useState(''); // Updated fieldOfStudy to description
     const [yearOfCompletion, setYearOfCompletion] = useState('');
     const [publications, setPublications] = useState('');
     const [image, setImage] = useState(null);
@@ -13,7 +16,7 @@ const EditPhdHolderModal = ({ show, handleClose, phdHolder, onUpdate }) => {
         if (phdHolder) {
             setName(phdHolder.name || '');
             setUniversity(phdHolder.university || '');
-            setFieldOfStudy(phdHolder.fieldOfStudy || '');
+            setDescription(phdHolder.description || ''); // Updated fieldOfStudy to description
             setYearOfCompletion(phdHolder.yearOfCompletion || '');
             setPublications(phdHolder.publications?.join(', ') || '');
         }
@@ -23,7 +26,7 @@ const EditPhdHolderModal = ({ show, handleClose, phdHolder, onUpdate }) => {
         e.preventDefault();
     
         // Validation
-        if (!name || !university || !fieldOfStudy || !yearOfCompletion || !publications) {
+        if (!name || !university || !description || !yearOfCompletion || !publications) {
             console.error('All fields are required.');
             return;
         }
@@ -31,7 +34,7 @@ const EditPhdHolderModal = ({ show, handleClose, phdHolder, onUpdate }) => {
         const formData = new FormData();
         formData.append('name', name);
         formData.append('university', university);
-        formData.append('fieldOfStudy', fieldOfStudy);
+        formData.append('description', description); // Updated fieldOfStudy to description
         formData.append('yearOfCompletion', yearOfCompletion);
         formData.append('publications', publications);
         if (image) {
@@ -39,28 +42,17 @@ const EditPhdHolderModal = ({ show, handleClose, phdHolder, onUpdate }) => {
         }
     
         try {
-            console.log('Submitting data:', {
-                name,
-                university,
-                fieldOfStudy,
-                yearOfCompletion,
-                publications,
-                image: image ? image.name : 'No image',
-            });
-            const response = await axios.put(`https://ascend-skills-backend.onrender.com/api/phd-holders/${phdHolder._id}`, formData, {
+            const response = await axios.put(`${apiUrl}/${phdHolder._id}`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
             });
-            console.log('Response:', response.data);
             handleClose();
             onUpdate();
         } catch (error) {
             console.error('Error updating PhD holder:', error.response?.data || error.message);
         }
     };
-    
-    
 
     return (
         <div
@@ -98,13 +90,13 @@ const EditPhdHolderModal = ({ show, handleClose, phdHolder, onUpdate }) => {
                     </div>
 
                     <div className="mb-4">
-                        <label htmlFor="fieldOfStudy" className="block text-sm font-medium text-gray-700">Field of Study</label>
+                        <label htmlFor="fieldOfStudy" className="block text-sm font-medium text-gray-700">Descriptions</label>
                         <input
-                            id="fieldOfStudy"
+                            id="Descriptions"
                             type="text"
-                            placeholder="Enter field of study"
-                            value={fieldOfStudy}
-                            onChange={(e) => setFieldOfStudy(e.target.value)}
+                            placeholder="Descriptions"
+                            value={description}
+                            onChange={(e) => setDescription(e.target.value)}
                             className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                         />
                     </div>

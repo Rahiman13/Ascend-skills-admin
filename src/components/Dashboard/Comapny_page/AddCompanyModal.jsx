@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import Base_Url from '../../../api';
+
+const apiUrl =`${Base_Url}/companies`
 
 const AddCompanyModal = ({ show, handleClose, onSuccess }) => {
   const [name, setName] = useState('');
@@ -12,7 +15,7 @@ const AddCompanyModal = ({ show, handleClose, onSuccess }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('https://ascend-skills-backend.onrender.com/api/companies', {
+      await axios.post(`${apiUrl}`, {
         name,
         logo,
         location,

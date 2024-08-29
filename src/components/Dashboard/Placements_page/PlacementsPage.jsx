@@ -4,6 +4,9 @@ import PlacementModal from './PlacementModal';
 import { FaEdit, FaTrash, FaPlus } from 'react-icons/fa';
 import Swal from 'sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
+import Base_Url from '../../../api';
+
+const apiUrl =`${Base_Url}/placements`
 
 const PlacementsPage = () => {
   const [placements, setPlacements] = useState([]);
@@ -17,7 +20,7 @@ const PlacementsPage = () => {
 
   const fetchPlacements = async () => {
     try {
-      const { data } = await axios.get('https://ascend-skills-backend.onrender.com/api/placements');
+      const { data } = await axios.get(`${apiUrl}`);
       setPlacements(data);
     } catch (error) {
       console.error('Error fetching placements:', error);
@@ -43,7 +46,7 @@ const PlacementsPage = () => {
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
-          await axios.delete(`https://ascend-skills-backend.onrender.com/api/placements/${id}`);
+          await axios.delete(`${apiUrl}/${id}`);
           Swal.fire('Deleted!', 'The placement has been deleted.', 'success');
           fetchPlacements();
         } catch (error) {

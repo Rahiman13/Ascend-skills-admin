@@ -4,7 +4,10 @@ import axios from 'axios';
 import Modal from 'react-modal';
 import Swal from 'sweetalert2';
 import { FaEdit, FaTrash, FaPlus } from 'react-icons/fa';
+import Base_Url from '../../../api';
 
+
+const apiUrl =`${Base_Url}/addresses`
 // Custom styles for the modal
 const customStyles = {
   content: {
@@ -13,8 +16,9 @@ const customStyles = {
     right: 'auto',
     bottom: 'auto',
     transform: 'translate(-50%, -50%)',
-    maxWidth: '600px',
-    width: '90%',
+    width: '600px',
+    height: '80vh', // Fixed height for the modal
+    overflowY: 'auto', // Enable vertical scrollbar
   },
 };
 
@@ -40,7 +44,8 @@ const AddressesPage = () => {
 
   const fetchAddresses = async () => {
     try {
-      const response = await axios.get('https://ascend-skills-backend.onrender.com/api/addresses');
+      // const response = await axios.get('http://localhost:5000/api/addresses/');
+      const response = await axios.get(`${apiUrl}`);
       setAddresses(response.data.data);
     } catch (error) {
       console.error('Error fetching addresses:', error);
@@ -99,10 +104,10 @@ const AddressesPage = () => {
     e.preventDefault();
     try {
       if (editMode) {
-        await axios.put(`https://ascend-skills-backend.onrender.com/api/addresses/${currentAddress._id}`, formData);
+        await axios.put(`${apiUrl}/${currentAddress._id}`, formData);
         Swal.fire('Updated!', 'Address has been updated.', 'success');
       } else {
-        await axios.post('https://ascend-skills-backend.onrender.com/api/addresses', formData);
+        await axios.post(`${apiUrl}`, formData);
         Swal.fire('Created!', 'Address has been added.', 'success');
       }
       fetchAddresses();
@@ -115,7 +120,7 @@ const AddressesPage = () => {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`https://ascend-skills-backend.onrender.com/api/addresses/${id}`);
+      await axios.delete(`${apiUrl}/${id}`);
       Swal.fire('Deleted!', 'Address has been deleted.', 'success');
       fetchAddresses();
     } catch (error) {

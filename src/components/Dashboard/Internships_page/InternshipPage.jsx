@@ -1,15 +1,16 @@
-// src/pages/InternshipsPage.jsx
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Modal from 'react-modal';
 import Swal from 'sweetalert2';
 import { FaEdit, FaTrash, FaPlus } from 'react-icons/fa';
 import 'tailwindcss/tailwind.css';
-import './Internship.css'
+import './Internship.css';
+import Base_Url from '../../../api';
 
-Modal.setAppElement('#root'); // For accessibility
+Modal.setAppElement('#root');
 
-const apiUrl = 'https://ascend-skills-backend.onrender.com/api/internships';
+// const apiUrl = 'https://ascend-skill-be.onrender.com/api/internships';
+const apiUrl = `${Base_Url}/internships`;
 
 const InternshipsPage = () => {
   const [internships, setInternships] = useState([]);
@@ -21,12 +22,13 @@ const InternshipsPage = () => {
     duration: '',
     startDate: '',
     endDate: '',
-    curriculum: '',
+    curriculum: '{}',  // Assuming JSON structure
     instructorId: '',
     description: '',
     authorName: '',
     image: '',
     review: '',
+    video: '',
   });
 
   useEffect(() => {
@@ -39,18 +41,28 @@ const InternshipsPage = () => {
       setInternships(response.data);
     } catch (error) {
       console.error('Error fetching internships:', error);
+      Swal.fire('Error', 'Could not fetch internships data.', 'error');
     }
   };
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
   };
 
   const handleOpenModal = (internship = null) => {
     if (internship) {
       setIsEditing(true);
       setCurrentInternship(internship);
-      setFormData({ ...internship, startDate: new Date(internship.startDate).toISOString().split('T')[0], endDate: new Date(internship.endDate).toISOString().split('T')[0] });
+      setFormData({
+        ...internship,
+        startDate: new Date(internship.startDate).toISOString().split('T')[0],
+        endDate: new Date(internship.endDate).toISOString().split('T')[0],
+        curriculum: JSON.stringify(internship.curriculum, null, 2),
+      });
     } else {
       setIsEditing(false);
       setFormData({
@@ -58,12 +70,13 @@ const InternshipsPage = () => {
         duration: '',
         startDate: '',
         endDate: '',
-        curriculum: '',
+        curriculum: '{}',
         instructorId: '',
         description: '',
         authorName: '',
         image: '',
         review: '',
+        video: '',
       });
     }
     setModalIsOpen(true);
@@ -77,11 +90,16 @@ const InternshipsPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      const updatedData = {
+        ...formData,
+        curriculum: JSON.parse(formData.curriculum),
+      };
+
       if (isEditing) {
-        await axios.put(`${apiUrl}/${currentInternship._id}`, formData);
+        await axios.put(`${apiUrl}/${currentInternship._id}`, updatedData);
         Swal.fire('Success', 'Internship updated successfully!', 'success');
       } else {
-        await axios.post(apiUrl, formData);
+        await axios.post(apiUrl, updatedData);
         Swal.fire('Success', 'Internship created successfully!', 'success');
       }
       fetchInternships();
@@ -124,6 +142,7 @@ const InternshipsPage = () => {
               <p className="text-gray-600">Description: {internship.description}</p>
               <p className="text-gray-600">Author: {internship.authorName}</p>
               <p className="text-gray-600">Review: {internship.review}</p>
+              <a className="text-blue-700 font-bold" href={internship.video} target='_blank'>Video Link</a>
               <div className="flex justify-end mt-4 space-x-2">
                 <button
                   onClick={() => handleOpenModal(internship)}
@@ -190,7 +209,8 @@ const InternshipsPage = () => {
             value={formData.curriculum}
             onChange={handleChange}
             placeholder="Curriculum (JSON format)"
-            className="w-full p-2 border border-gray-300 rounded"
+            className="w-full p-2 border border-gray-300 rounded font-mono"
+            rows={4}
             required
           />
           <input
@@ -234,21 +254,33 @@ const InternshipsPage = () => {
             onChange={handleChange}
             placeholder="Review"
             className="w-full p-2 border border-gray-300 rounded"
+            required
           />
-          <button
-            type="submit"
-            className="bg-blue-500 text-white px-4 py-2 rounded"
-          >
-            {isEditing ? 'Update Internship' : 'Add Internship'}
-          </button>
-          <button
-            type="button"
-            onClick={handleCloseModal}
-            className="bg-gray-500 text-white px-4 py-2 rounded"
-          >
-            Cancel
-          </button>
-          </form>
+          <input
+            type="text"
+            name="video"
+            value={formData.video}
+            onChange={handleChange}
+            placeholder="Video URL"
+            className="w-full p-2 border border-gray-300 rounded"
+            required
+          />
+          <div className="flex justify-end">
+            <button
+              type="button"
+              onClick={handleCloseModal}
+              className="bg-gray-500 text-white px-4 py-2 rounded mr-2"
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              className="bg-blue-500 text-white px-4 py-2 rounded"
+            >
+              {isEditing ? 'Update Internship' : 'Create Internship'}
+            </button>
+          </div>
+        </form>
       </Modal>
     </div>
   );

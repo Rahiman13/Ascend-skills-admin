@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import Base_Url from '../../../api';
 
+const apiUrl =`${Base_Url}/team`
 const EditTeamMemberModal = ({ show, handleClose, teamMember }) => {
     const [name, setName] = useState('');
     const [position, setPosition] = useState('');
@@ -45,13 +47,13 @@ const EditTeamMemberModal = ({ show, handleClose, teamMember }) => {
 
         try {
             if (teamMember) {
-                await axios.put(`https://ascend-skills-backend.onrender.com/api/team/${teamMember._id}`, formData, {
+                await axios.put(`${apiUrl}/${teamMember._id}`, formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data',
                     },
                 });
             } else {
-                await axios.post('https://ascend-skills-backend.onrender.com/api/team', formData, {
+                await axios.post(`${apiUrl}`, formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data',
                     },

@@ -2,7 +2,9 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import AddCompanyModal from './AddCompanyModal';
 import EditCompanyModal from './EditCompanyModal';
+import Base_Url from '../../../api';
 
+const apiUrl =`${Base_Url}/companies`
 const CompanyPage = () => {
   const [companies, setCompanies] = useState([]);
   const [selectedCompany, setSelectedCompany] = useState(null);
@@ -15,7 +17,7 @@ const CompanyPage = () => {
 
   const fetchCompanies = async () => {
     try {
-      const response = await axios.get('https://ascend-skills-backend.onrender.com/api/companies');
+      const response = await axios.get(`${apiUrl}`);
       setCompanies(response.data);
     } catch (error) {
       console.error('Error fetching companies:', error);

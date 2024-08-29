@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { toast } from 'react-toastify';
 import axios from 'axios';
+import Base_Url from '../../../api';
+
+const apiUrl =`${Base_Url}/colleges`
 
 const AddCollegeModal = ({ show, handleClose, onAdd }) => {
     const [name, setName] = useState('');
@@ -17,7 +20,7 @@ const AddCollegeModal = ({ show, handleClose, onAdd }) => {
         if (logo) formData.append('logo', logo);
 
         try {
-            await axios.post('https://ascend-skills-backend.onrender.com/api/colleges', formData, {
+            await axios.post(`${apiUrl}`, formData, {
                 headers: { 'Content-Type': 'multipart/form-data' },
             });
             handleClose();

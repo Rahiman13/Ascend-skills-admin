@@ -4,6 +4,9 @@ import ReviewCard from './ReviewCard';
 import Modal from './ReviewModal';
 import Swal from 'sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
+import Base_Url from '../../../api';
+
+const apiUrl =`${Base_Url}/reviews`
 
 const ReviewPage = () => {
   const [reviews, setReviews] = useState([]);
@@ -17,7 +20,10 @@ const ReviewPage = () => {
 
   const fetchReviews = async () => {
     try {
-      const { data } = await axios.get('https://ascend-skills-backend.onrender.com/api/reviews');
+      // const { data } = await axios.get('https://ascend-skills-backend.onrender.com/api/reviews');
+      // const { data } = await axios.get('http://localhost:5000/api/reviews');
+      const { data } = await axios.get(`${apiUrl}`);
+      console.log(apiUrl)
       setReviews(data);
     } catch (error) {
       console.error('Error fetching reviews:', error);
