@@ -6,7 +6,7 @@ const ReviewCard = ({ review, onEdit, onDelete }) => {
   return (
     <div className="border rounded shadow p-4 bg-white">
       {review.image && <img src={review.image} alt="Review" className="mt-4 max-w-full" />}
-      <h2 className="text-xl font-bold">{review.courseId.title}</h2>
+      <h2 className="text-xl font-bold">{review.courseId ? review.courseId.title : 'Unknown Course'}</h2>
       <p className="text-sm text-gray-600">By {userName}</p>
       <p className="text-lg mt-2">Rating: {review.rating}</p>
       <p className="mt-2">{review.comment}</p>
